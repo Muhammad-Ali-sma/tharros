@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Roboto } from "next/font/google";
+import { Roboto } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/navbar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 
 const roboto = Roboto({
   variable: "--font-roboto",
@@ -23,8 +24,12 @@ export default function RootLayout({
       <body
         className={`${roboto.variable} antialiased dark`}
       >
-        <Navbar />
-        {children}
+        <SidebarProvider>
+          <main className="w-full">
+          <Navbar />
+            {children}
+          </main>
+        </SidebarProvider>
       </body>
     </html>
   );
