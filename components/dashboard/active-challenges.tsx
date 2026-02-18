@@ -1,24 +1,22 @@
 import { Card } from '../card'
 import { Slider } from '../ui/slider';
 import { Badge } from '../ui/badge';
+import { activeChallenges } from '@/lib/constants';
 
 export const ActiveChallenges = () => {
     return (
         <Card className='flex flex-col gap-8'>
             <p className='text-sm text-white'>Active Challenges</p>
             <div className='flex flex-col gap-3.5'>
-                <ChallengeCard
-                    title='30-Day Authenticity Challenge'
-                    badge={'324 coins'}
-                    daysLeft={5}
-                    completed={85}
-                />
-                <ChallengeCard
-                    title='Daily Gratitude Practice'
-                    badge={'25 coins'}
-                    daysLeft={12}
-                    completed={45}
-                />
+                {activeChallenges.map((challenge) => (
+                    <ChallengeCard
+                        key={challenge.title}
+                        title={challenge.title}
+                        badge={challenge.badge}
+                        daysLeft={challenge.daysLeft}
+                        completed={challenge.completed}
+                    />
+                ))}
             </div>
         </Card>
     )

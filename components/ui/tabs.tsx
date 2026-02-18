@@ -5,6 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { Tabs as TabsPrimitive } from "radix-ui"
 
 import { cn } from "@/lib/utils"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 
 function Tabs({
   className,
@@ -17,7 +18,7 @@ function Tabs({
       data-orientation={orientation}
       orientation={orientation}
       className={cn(
-        "group/tabs flex gap-2 data-[orientation=horizontal]:flex-col",
+        "group/tabs flex gap-5 md:gap-8 data-[orientation=horizontal]:flex-col",
         className
       )}
       {...props}
@@ -46,13 +47,43 @@ function TabsList({
   ...props
 }: React.ComponentProps<typeof TabsPrimitive.List> &
   VariantProps<typeof tabsListVariants>) {
+  const listRef = React.useRef<HTMLDivElement>(null)
+
+  const scroll = (direction: "left" | "right") => {
+    if (!listRef.current) return
+
+    const scrollAmount = 160
+    listRef.current.scrollBy({
+      left: direction === "left" ? -scrollAmount : scrollAmount,
+      behavior: "smooth",
+    })
+  }
   return (
-    <TabsPrimitive.List
-      data-slot="tabs-list"
-      data-variant={variant}
-      className={cn(tabsListVariants({ variant }), className)}
-      {...props}
-    />
+    <div className="flex items-center gap-1 w-full sm:w-fit">
+      <button
+        onClick={() => scroll("left")}
+        className="sm:hidden"
+      >
+        <ChevronLeft className="h-4 w-4" />
+      </button>
+      <TabsPrimitive.List
+        ref={listRef}
+        data-slot="tabs-list"
+        data-variant={variant}
+        className={cn(tabsListVariants({ variant }), `flex
+          w-full
+          overflow-x-auto
+          whitespace-nowrap  
+        `, className)}
+        {...props}
+      />
+      <button
+        onClick={() => scroll("right")}
+        className="sm:hidden"
+      >
+        <ChevronRight className="h-4 w-4" />
+      </button>
+    </div>
   )
 }
 

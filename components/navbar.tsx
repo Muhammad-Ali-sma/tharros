@@ -11,7 +11,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './ui/collap
 export const Navbar = () => {
     return (
         <header className="border-b border-white/20">
-            <div className="flex items-center justify-between lg:justify-center py-6 max-w-7xl px-16 gap-4 xl:gap-16 mx-auto">
+            <div className="flex items-center justify-between lg:justify-center py-6 max-w-7xl px-3 sm:px-6 lg:px-16 gap-2 sm:gap-4 xl:gap-16 mx-auto">
                 <div className='flex items-center'>
                     <SidebarTrigger className='block lg:hidden' />
                     <Image src={'/logo.png'} alt='Logo' width={103} height={26} className='min-w-25.75 transition-transform duration-600 hover:scale-110' />
@@ -44,7 +44,7 @@ export const Navbar = () => {
                         ))}
                     </NavigationMenuList>
                 </NavigationMenu.Root>
-                <div className='flex items-center gap-5'>
+                <div className='flex items-center gap-1 sm:gap-5'>
                     <Button variant={'ghost'} size={'xs'}>
                         <User />  Login
                     </Button>
